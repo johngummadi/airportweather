@@ -13,6 +13,8 @@ import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.innovative.bo.AirportWeatherBO;
 import com.innovative.operations.AirportWeatherOperation;
 import com.innovative.operations.Operation;
@@ -95,6 +97,8 @@ public class MainActivity extends Activity {
 			if (awBO.getId() == mCurrentRequestId) {
 				runOnUiThread (new Runnable () { @Override public void run () {
 					populateData(awBO);
+					if (awBO.mStatusMessage!=null && ! awBO.mStatusMessage.isEmpty())
+						Toast.makeText(MainActivity.this, awBO.mStatusMessage, Toast.LENGTH_SHORT).show();
 				}});
 			}
 		}

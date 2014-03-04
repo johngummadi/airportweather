@@ -6,7 +6,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class AirportWeatherBO extends OperationResultBO {
-	
 	public enum CloudsCode {
 		Undefined,
 		ClearSkies,
@@ -28,6 +27,9 @@ public class AirportWeatherBO extends OperationResultBO {
 			return Undefined;
 		}
 	}
+	
+	public int mStatusValue = 0;
+	public String mStatusMessage = "";
 	
 	public String mWeatherCondition = "N/A";
 	public String mClouds = "N/A";
@@ -56,10 +58,22 @@ public class AirportWeatherBO extends OperationResultBO {
 		boolean bRet = false;
 		JSONObject jsonObj = null;
 		JSONObject weatherObservation = null;
+		JSONObject status = null;
 		if (jsonString==null)
 			return false;
 		try {
 			jsonObj = new JSONObject(jsonString);
+			if (jsonObj.has("status"))
+				status = (JSONObject)jsonObj.get("status");
+			if (status != null) {
+				try {
+					if (status.has("value"))
+						mStatusValue = status.getInt("value");
+					if (status.has("message"))
+						mStatusMessage = status.getString("message");
+				} catch (Exception e) { ; }
+			}
+			
 			if (jsonObj.has("weatherObservation"))
 				weatherObservation = (JSONObject)jsonObj.get("weatherObservation");
 			if (weatherObservation != null) {

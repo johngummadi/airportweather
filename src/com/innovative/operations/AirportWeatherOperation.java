@@ -9,7 +9,7 @@ public class AirportWeatherOperation extends Operation {
 	public AirportWeatherOperation(String airportCode, OperationCallback callback) {
 		super(RequestType.AirportWeather, callback);
 		mAirportCode = airportCode;
-		mURL = "http://ws.geonames.org/weatherIcaoJSON?ICAO=" + mAirportCode;
+		mURL = "http://ws.geonames.org/weatherIcaoJSON?ICAO=" + mAirportCode + "&username=johngummadi";
 	}
 	
 	@Override
